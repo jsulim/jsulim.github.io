@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>포트폴리오 | Name Here</title>
+    <title>포트폴리오 | 임준수</title>
     
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
 
@@ -14,16 +14,16 @@
             --text-main: #f2f2f2;
             --text-sub: #a1a1aa;
             --accent: #6366f1; /* Indigo */
-            --accent-glow: rgba(99, 102, 241, 0.4);
+            --accent-dim: rgba(99, 102, 241, 0.15);
             --border-color: rgba(255, 255, 255, 0.08);
             --card-shadow: 
                 0 4px 6px -1px rgba(0, 0, 0, 0.3), 
                 0 2px 4px -1px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1); /* 입체감 핵심 */
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             --card-hover-shadow: 
                 0 20px 25px -5px rgba(0, 0, 0, 0.4), 
                 0 10px 10px -5px rgba(0, 0, 0, 0.2),
-                0 0 15px var(--accent-glow);
+                0 0 15px rgba(99, 102, 241, 0.4);
         }
 
         * {
@@ -37,20 +37,17 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
-            /* 노이즈 텍스처로 디지털 느낌 감소 및 질감 추가 */
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
             overflow-x: hidden;
         }
 
-        /* 레이아웃 컨테이너 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 80px 24px;
         }
 
-        /* 타이포그래피 */
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             font-weight: 700;
             letter-spacing: -0.02em;
         }
@@ -69,22 +66,33 @@
             margin-bottom: 32px;
             border-left: 4px solid var(--accent);
             padding-left: 16px;
+            margin-top: 60px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
         }
 
         p {
             color: var(--text-sub);
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
-        /* Bento Grid 레이아웃 */
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        /* Bento Grid */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 24px;
-            margin-bottom: 80px;
         }
 
-        /* 공통 카드 스타일 (입체감 적용) */
         .card {
             background-color: var(--card-bg);
             border-radius: 24px;
@@ -94,7 +102,6 @@
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             position: relative;
             overflow: hidden;
         }
@@ -106,7 +113,7 @@
             border-color: rgba(99, 102, 241, 0.3);
         }
 
-        /* 카드 내부 광원 효과 (Gradient Overlay) */
+        /* Spotlight Effect */
         .card::before {
             content: '';
             position: absolute;
@@ -119,77 +126,44 @@
             transition: opacity 0.3s;
             pointer-events: none;
         }
-        .card:hover::before {
-            opacity: 1;
-        }
+        .card:hover::before { opacity: 1; }
 
-        /* 섹션별 그리드 배치 */
+        /* Grid Spans */
         .hero-section {
-            grid-column: span 12;
-            min-height: 400px;
-            justify-content: center;
-            align-items: flex-start;
-            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 60%), var(--card-bg);
-        }
-
-        .about-section {
             grid-column: span 8;
+            min-height: 380px;
+            justify-content: center;
+            background: radial-gradient(circle at top right, var(--accent-dim), transparent 60%), var(--card-bg);
         }
 
         .contact-section {
             grid-column: span 4;
             background: var(--accent);
             color: white;
+            justify-content: space-between;
         }
-        .contact-section h3, .contact-section p {
-            color: white; /* 오버라이드 */
-        }
-        .contact-section a {
-            color: white;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-        }
+        .contact-section p, .contact-section a, .contact-section h3 { color: white; }
+        .contact-section .link-group { display: flex; flex-direction: column; gap: 8px; }
+        .contact-section a:hover { text-decoration: underline; }
 
-        .exp-section {
-            grid-column: span 12;
-        }
+        .about-detail { grid-column: span 12; }
+        .research-card { grid-column: span 7; }
+        .cert-card { grid-column: span 5; }
+        .exp-section { grid-column: span 12; }
+        .project-card { grid-column: span 6; }
 
-        .project-card {
-            grid-column: span 6;
-            min-height: 320px;
-        }
-
-        .skill-section {
-            grid-column: span 12;
-        }
-
-        /* 반응형: 태블릿 */
-        @media (max-width: 1024px) {
-            .about-section { grid-column: span 12; }
-            .contact-section { grid-column: span 12; }
-        }
-
-        /* 반응형: 모바일 */
-        @media (max-width: 768px) {
-            .container { padding: 40px 16px; }
-            h1 { font-size: 2.5rem; }
-            .bento-grid { display: flex; flex-direction: column; gap: 16px; }
-            .project-card { grid-column: span 12; }
-        }
-
-        /* 상세 요소 스타일 */
+        /* Components */
         .tag {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-main);
             font-size: 0.85rem;
             font-weight: 500;
             margin-right: 8px;
             margin-bottom: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
         }
 
         .btn {
@@ -198,175 +172,263 @@
             padding: 12px 24px;
             background-color: var(--text-main);
             color: var(--bg-color);
-            text-decoration: none;
             font-weight: 600;
             border-radius: 12px;
-            transition: all 0.2s;
             margin-top: 24px;
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.3);
+            width: fit-content;
         }
 
-        .exp-item {
-            display: flex;
-            gap: 20px;
+        /* Lists & Timelines */
+        .list-item {
+            padding: 20px 0;
             border-bottom: 1px solid var(--border-color);
-            padding: 24px 0;
         }
-        .exp-item:last-child { border-bottom: none; }
+        .list-item:last-child { border-bottom: none; }
         
-        .exp-date {
-            min-width: 140px;
-            color: var(--text-sub);
-            font-feature-settings: "tnum";
-            font-variant-numeric: tabular-nums;
-        }
-
-        .exp-content h4 {
-            color: var(--text-main);
-            font-size: 1.2rem;
-            margin-bottom: 4px;
-        }
-        .exp-role {
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        /* SVG 아이콘 설정 */
-        .icon {
-            width: 24px;
-            height: 24px;
-            stroke-width: 2;
-            stroke: currentColor;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        /* 프로젝트 이미지 플레이스홀더 */
-        .project-img {
-            width: 100%;
-            height: 180px;
-            background: #2a2a2e;
-            border-radius: 12px;
-            margin-bottom: 20px;
+        .list-header {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
-            font-size: 0.9rem;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
+        .list-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        
+        .list-date {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-family: monospace;
+        }
+
+        .list-desc {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+        }
+
+        .paper-tag {
+            background-color: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        /* SVG Icons */
+        .icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-section { grid-column: span 12; }
+            .contact-section { grid-column: span 12; min-height: 200px; }
+            .research-card, .cert-card { grid-column: span 12; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 40px 16px; }
+            h1 { font-size: 2.5rem; }
+            .bento-grid { display: flex; flex-direction: column; gap: 16px; }
+            .project-card { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="bento-grid">
+            
             <div class="card hero-section">
                 <div>
-                    <h1>안녕하세요,<br>문제 해결을 즐기는 개발자<br>홍길동입니다.</h1>
-                    <p style="max-width: 600px; margin-bottom: 32px;">
-                        복잡한 데이터를 명료한 인사이트로 전환하는 것에 열정을 가지고 있습니다. 
-                        사용자 경험을 최우선으로 생각하며, 견고하고 확장 가능한 시스템을 설계합니다.
+                    <div style="margin-bottom: 16px;">
+                        <span class="tag" style="background:var(--accent); border:none;">Data Engineering</span>
+                        <span class="tag">Medical AI</span>
+                    </div>
+                    <h1>임준수 (Junsu Lim)</h1>
+                    <p style="font-size: 1.2rem; color: #d1d1d6; margin-bottom: 24px;">
+                        Healthcare Data Engineer
                     </p>
-                    <a href="#contact" class="btn">
-                        이력서 다운로드
-                        <svg class="icon" style="margin-left: 8px;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></svg>
+                    <p style="max-width: 650px; line-height: 1.7;">
+                        헬스케어 도메인에서 의료·임상 데이터를 안정적으로 다루고, 
+                        AI 모델이 실제로 활용될 수 있는 데이터 파이프라인과 인프라를 설계합니다. 
+                        현재 서울대학교 의료영상 연구실(IMSI)에서 연구원으로 활동하며, 
+                        데이터 기반의 문제 해결에 집중하고 있습니다.
+                    </p>
+                    <a href="mailto:eutume5@gmail.com" class="btn">
+                        Contact Me
                     </a>
                 </div>
             </div>
 
-            <div class="card about-section">
-                <h3>소개</h3>
-                <p style="margin-top: 16px;">
-                    주도적으로 문제를 정의하고 기술을 통해 해결책을 모색합니다. 
-                    백엔드 엔지니어링과 데이터 처리에 강점이 있으며, 최근에는 대용량 트래픽 처리에 관심을 두고 연구하고 있습니다. 
-                    새로운 기술을 배우는 것을 두려워하지 않으며, 팀원과의 원활한 소통을 통해 시너지를 내는 것을 중요하게 생각합니다.
-                </p>
-            </div>
-
             <div class="card contact-section">
-                <h3>협업 문의</h3>
-                <div style="margin-top: auto;">
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 8px;">이메일</p>
-                    <a href="mailto:email@example.com" style="font-size: 1.2rem; font-weight: 700;">email@example.com</a>
-                    
-                    <p style="color: rgba(255,255,255,0.8); margin-top: 24px; margin-bottom: 8px;">깃허브</p>
-                    <a href="https://github.com" target="_blank" style="font-size: 1.1rem;">github.com/username</a>
+                <h3>Connect</h3>
+                <div class="link-group">
+                    <a href="mailto:eutume5@gmail.com">eutume5@gmail.com</a>
+                    <a href="https://jannfbdata.tistory.com/" target="_blank">Blog (Tistory)</a>
+                    <a href="https://www.linkedin.com/in/%EC%A4%80%EC%88%98-%EC%9E%84-308151259/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/jsulim" target="_blank">GitHub @jsulim</a>
                 </div>
             </div>
-        </div>
 
-        <h2>경력 기술</h2>
-        <div class="card" style="margin-bottom: 80px;">
-            <div class="exp-item">
-                <div class="exp-date">2023.03 - 현재</div>
-                <div class="exp-content">
-                    <h4>ABC 테크놀로지</h4>
-                    <span class="exp-role">백엔드 개발자</span>
-                    <p>클라우드 기반의 SaaS 플랫폼 개발 참여. 레거시 시스템을 MSA 구조로 전환하여 응답 속도 40% 개선. CI/CD 파이프라인 구축을 통해 배포 자동화 달성.</p>
+            <div class="card research-card">
+                <h3>Research & Publications</h3>
+                <div style="margin-top: 16px;">
+                    <div class="list-item">
+                        <div class="list-header">
+                            <span class="list-title">NVIDIA GTC 2026 <span class="paper-tag">Poster</span></span>
+                            <span class="list-date">2026.03</span>
+                        </div>
+                        <p class="list-desc">VLM, Medical Subject (IMSI Lab)</p>
+                    </div>
+                    <div class="list-item">
+                        <div class="list-header">
+                            <span class="list-title">ISBI 2026 <span class="paper-tag">Submitted</span></span>
+                        </div>
+                        <p class="list-desc">3D-LLDM: Label-Guided 3D Latent Diffusion Model for Improving High-Resolution Synthetic MR Imaging in Hepatic Structure Segmentation</p>
+                    </div>
+                    <div class="list-item">
+                        <div class="list-header">
+                            <span class="list-title">ICEIC 2026</span>
+                        </div>
+                        <p class="list-desc">Medical AI Research</p>
+                    </div>
                 </div>
             </div>
-            <div class="exp-item">
-                <div class="exp-date">2021.06 - 2022.12</div>
-                <div class="exp-content">
-                    <h4>XYZ 스타트업</h4>
-                    <span class="exp-role">주니어 개발자</span>
-                    <p>사내 어드민 페이지 기획 및 개발. 실시간 데이터 대시보드 구현을 통해 의사결정 속도 단축 기여. REST API 설계 및 문서화 담당.</p>
-                </div>
-            </div>
-        </div>
 
-        <h2>주요 프로젝트</h2>
-        <div class="bento-grid">
+            <div class="card cert-card">
+                <h3>Certificates & Skills</h3>
+                <div style="margin-top: 20px;">
+                    <h4 style="margin-bottom: 12px; font-size: 1rem; color:var(--text-sub);">Certificates</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
+                        <span class="tag">빅데이터분석기사</span>
+                        <span class="tag">SQLD</span>
+                        <span class="tag">ADSP</span>
+                        <span class="tag">TOEIC 945</span>
+                    </div>
+
+                    <h4 style="margin-bottom: 12px; font-size: 1rem; color:var(--text-sub);">Tech Stack</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span class="tag">Python</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Kotlin</span>
+                        <span class="tag">PyTorch</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Git</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card exp-section">
+                <h2>Work & Research Experience</h2>
+                
+                <div class="list-item">
+                    <div class="list-header">
+                        <span class="list-title">Medical Imaging Lab (IMSI), Seoul National Univ.</span>
+                        <span class="list-date">2024.12 - Present</span>
+                    </div>
+                    <p class="list-desc">Researcher / Medical AI Research</p>
+                    <p class="list-desc" style="margin-top: 6px; font-size: 0.9rem;">
+                        - 컴퓨터구조 및 병렬처리 연구실<br>
+                        - 의료영상 기반 병변예측 모델 개발, Masked Image Modeling, Transformer 연구
+                    </p>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-header">
+                        <span class="list-title">SeSAC (Seoul Software Academy)</span>
+                        <span class="list-date">2025.12 - Present</span>
+                    </div>
+                    <p class="list-desc">Cloud, Network 과정 수료 및 프로젝트 진행</p>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-header">
+                        <span class="list-title">GDSKOREA</span>
+                        <span class="list-date">2025.01 - 2025.06</span>
+                    </div>
+                    <p class="list-desc">Database Engineer Intern</p>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-header">
+                        <span class="list-title">OUTTA (인공지능 교육단체)</span>
+                        <span class="list-date">2024.11 - Present</span>
+                    </div>
+                    <p class="list-desc">AI Researcher</p>
+                </div>
+                
+                <div class="list-item">
+                    <div class="list-header">
+                        <span class="list-title">국민체육진흥공단 (KSPO)</span>
+                        <span class="list-date">2025.10 - 2025.11</span>
+                    </div>
+                    <p class="list-desc">Biomechanics(생체역학) 데이터 분석</p>
+                </div>
+            </div>
+
+            <div class="exp-section" style="padding-top: 0; border: none; background: none; box-shadow: none;">
+                <h2>Projects</h2>
+            </div>
+
             <div class="card project-card">
-                <div class="project-img">프로젝트 이미지 영역 (1200x630 권장)</div>
-                <h3>대용량 로그 처리 시스템</h3>
-                <p style="margin: 12px 0;">분산된 서버 로그를 수집하고 분석하여 시각화하는 파이프라인 구축. ELK 스택 활용.</p>
-                <div style="margin-top: auto;">
-                    <span class="tag">Java</span>
-                    <span class="tag">Kafka</span>
-                    <span class="tag">Elasticsearch</span>
+                <h3>The 2nd Medical AI (MAI) 경진대회</h3>
+                <p style="margin: 12px 0; flex-grow: 1;">
+                    DACON 주관 의료 AI 경진대회 참여. 데이터 전처리 및 모델링을 통해 상위 10% 성과 달성.
+                </p>
+                <div style="margin-top: 16px;">
+                    <span class="tag">Medical AI</span>
+                    <span class="tag">DACON Top 10%</span>
                 </div>
             </div>
 
             <div class="card project-card">
-                <div class="project-img">프로젝트 이미지 영역</div>
-                <h3>사내 협업 툴 'Co-Work'</h3>
-                <p style="margin: 12px 0;">실시간 채팅 및 일정 공유가 가능한 웹 애플리케이션. 웹소켓을 이용한 양방향 통신 구현.</p>
-                <div style="margin-top: auto;">
-                    <span class="tag">React</span>
-                    <span class="tag">Node.js</span>
-                    <span class="tag">Socket.io</span>
+                <h3>TreasureHunt</h3>
+                <p style="margin: 12px 0; flex-grow: 1;">
+                    프라이빗한 지도 다이어리 애플리케이션 개발. Kotlin을 활용한 안드로이드 앱 프로그래밍.
+                </p>
+                <div style="margin-top: 16px;">
+                    <span class="tag">Kotlin</span>
+                    <span class="tag">App Programming</span>
                 </div>
             </div>
+            
+            <div class="card project-card">
+                <h3>Up in the air</h3>
+                <p style="margin: 12px 0; flex-grow: 1;">
+                    SeSAC 클라우드/네트워크 과정 프로젝트.
+                </p>
+                <div style="margin-top: 16px;">
+                    <span class="tag">Cloud</span>
+                    <span class="tag">Network</span>
+                </div>
+            </div>
+
+            <div class="card project-card">
+                <h3>Subway Data Analysis</h3>
+                <p style="margin: 12px 0; flex-grow: 1;">
+                    상명대학교 데이터분석 학술 및 교육단체 MOMENTUM 활동 프로젝트. 지하철 데이터 분석 및 시각화.
+                </p>
+                <div style="margin-top: 16px;">
+                    <span class="tag">Data Analysis</span>
+                    <span class="tag">Python</span>
+                </div>
+            </div>
+
         </div>
 
-        <h2>보유 기술</h2>
-        <div class="card skill-section">
-            <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-                <span class="tag">Java</span>
-                <span class="tag">Python</span>
-                <span class="tag">Spring Boot</span>
-                <span class="tag">Docker</span>
-                <span class="tag">AWS</span>
-                <span class="tag">MySQL</span>
-                <span class="tag">Redis</span>
-                <span class="tag">Git</span>
-                <span class="tag">Linux</span>
-            </div>
-        </div>
-        
         <footer style="text-align: center; margin-top: 80px; color: var(--text-sub); font-size: 0.9rem;">
-            <p>&copy; 2024 Name Here. All rights reserved.</p>
+            <p>&copy; 2026 Junsu Lim. All rights reserved.</p>
         </footer>
     </div>
 
